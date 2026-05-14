@@ -3,31 +3,29 @@ param (
     [string]$Message
 )
 
-# Percorso di Git (dato che non è nel PATH di sistema)
-$git = "C:\Program Files\Git\bin\git.exe"
+$gitPath = "C:\Program Files\Git\bin\git.exe"
 
-# Se il messaggio non è fornito, chiedilo all'utente
+if (-not (Test-Path $gitPath)) {
+    Write-Error "Git non trovato in $gitPath. Verifica il percorso."
+    return
+}
+
 if (-not $Message) {
     $Message = Read-Host "Inserisci il messaggio del commit"
 }
 
 if (-not $Message) {
-    Write-Host "Errore: Il messaggio del commit non può essere vuoto." -ForegroundColor Red
-    exit 1
+    Write-Warning "Messaggio del commit vuoto. Operazione annullata."
+    return
 }
 
-Write-Host "--- Inizio sincronizzazione Git ---" -ForegroundColor Cyan
+Write-Host "--- Aggiunta file ---" -ForegroundColor Cyan
+& $gitPath add .
 
-# 1. Add
-Write-Host "> Aggiunta file..." -ForegroundColor Gray
-& $git add .
+Write-Host "--- Creazione commit ---" -ForegroundColor Cyan
+& $gitPath commit -m $Message
 
-# 2. Commit
-Write-Host "> Salvataggio (commit)..." -ForegroundColor Gray
-& $git commit -m "$Message"
+Write-Host "--- Invio su GitHub ---" -ForegroundColor Cyan
+& $gitPath push
 
-# 3. Push
-Write-Host "> Invio su GitHub (push)..." -ForegroundColor Gray
-& $git push
-
-Write-Host "--- Sincronizzazione completata! ---" -ForegroundColor Green
+Write-Host "--- Completato! ---" -ForegroundColor Green
