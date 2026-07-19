@@ -1,0 +1,1876 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@300;400;500&display=swap');
+@import url('https://api.fontshare.com/v2/css?f[]=satoshi@400,500,700,900&display=swap');
+
+:root {
+  --font-display: 'Satoshi', sans-serif;
+  --font-body: 'Inter', sans-serif;
+  --font-chat: 'Poppins', sans-serif; /* stand-in for Figma's "Futura Lt BT" (not web-available) — closest free geometric/rounded match */
+  
+  /* Core UI colors */
+  --bg-darkest: #040406;
+  --bg-darker: #08080c;
+  --bg-card: rgba(12, 12, 18, 0.65);
+  --border-card: rgba(255, 255, 255, 0.13);
+  --border-card-hover: rgba(255, 255, 255, 0.25);
+  --text-primary: #ffffff;
+  --text-secondary: rgba(255, 255, 255, 0.4);
+  
+  /* Fallback active theme color - dynamically updated via JS variable */
+  --theme-color: #FF4B28;
+  --theme-color-rgb: 255, 75, 40;
+
+  /* Figma design tokens */
+  --bar-size-bar-big-h: 82px;
+  --color-widget-prymary-stroke-color-widget: rgba(255, 255, 255, 0.14);
+  --color-widget-prymary-color-widget: rgba(22, 22, 22, 0.6);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
+}
+
+html, body {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background: var(--bg-darkest);
+  font-family: var(--font-body);
+  color: var(--text-primary);
+  touch-action: none;
+  user-select: none;
+  -webkit-user-select: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ── Mobile Container with Premium Bezel ───────────────────────────────── */
+.mobile-frame {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  height: 100dvh;
+  overflow: hidden;
+  background: var(--bg-darker);
+  display: flex;
+  flex-direction: column;
+  transition: box-shadow 0.6s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+@media (min-width: 440px) {
+  .mobile-frame {
+    width: 402px;
+    height: 874px;
+    border-radius: 48px;
+    border: 12px solid #1c1c1e;
+    box-shadow: 
+      0 25px 60px -15px rgba(0, 0, 0, 0.95),
+      0 0 40px -10px rgba(var(--theme-color-rgb), 0.15),
+      0 0 0 2px rgba(255, 255, 255, 0.04),
+      inset 0 0 0 4px rgba(0, 0, 0, 0.6);
+  }
+}
+
+/* ── iOS Status Bar ────────────────────────────────────────────────────── */
+.status-bar {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%;
+  height: 44px;
+  padding: 0 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 14px;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.95);
+  font-family: var(--font-display);
+  z-index: 10000;
+  pointer-events: none;
+}
+
+.status-icons {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+
+/* ── App Header ────────────────────────────────────────────────────────── */
+.app-header {
+  position: absolute;
+  top: 44px; left: 50%;
+  width: 360px; /* exact Figma "top bar" size, node 661:4999 */
+  height: 71px;
+  margin-left: -180px;
+  padding: 0; /* Figma: no horizontal padding — content spans the full 360px edge to edge */
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  z-index: 9999;
+  pointer-events: none;
+}
+
+.header-left {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 12px;
+}
+
+.header-text-col {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.header-avatar {
+  display: none;
+  width: 56px; /* exact Figma "button icon/button icon small" token, node 661:6562 */
+  height: 56px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  overflow: hidden;
+  align-items: center;
+  justify-content: center;
+}
+
+.header-avatar-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.header-left.is-coach .header-avatar {
+  display: flex;
+}
+
+/* Figma: Title = "Homeo" large orange, Subtitle = "Benvenuto" small. Confirmed directly from the
+   live file (every screen's title node — Homeo/Dieta/Attività/Coach alike) — it's Inter everywhere,
+   never Satoshi, despite how the rounded glyph shapes might look at a glance. */
+.header-title {
+  font-size: 40px;
+  font-weight: 700;
+  letter-spacing: -0.5px;
+  color: var(--theme-color);
+  font-family: var(--font-body);
+  line-height: 1.1;
+}
+
+.header-subtitle {
+  font-size: 16px;
+  font-weight: 400;
+  text-transform: none;
+  letter-spacing: 0;
+  color: rgba(255, 255, 255, 0.9);
+  font-family: var(--font-body);
+}
+
+/* Settings button replacing avatar */
+.settings-btn {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background: none;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #d9d9d9;
+  cursor: pointer;
+  pointer-events: auto;
+  transition: transform 0.3s ease;
+  position: relative;
+  right: -6px; /* nudge right to align exactly with the icon's visual edge */
+}
+
+.settings-btn:active {
+  transform: scale(0.9);
+}
+
+/* ── Dynamic Glow Background ───────────────────────────────────────────── */
+.glow-bg {
+  position: absolute;
+  width: 380px;
+  height: 380px;
+  left: 50%;
+  top: 45%;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(var(--theme-color-rgb), 0.16) 0%, rgba(0,0,0,0) 70%);
+  filter: blur(60px);
+  pointer-events: none;
+  z-index: 1;
+  transition: background 0.8s cubic-bezier(0.3, 0.8, 0.3, 1);
+}
+
+/* ── 3D Scene Viewport ─────────────────────────────────────────────────── */
+.scene {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%;
+  height: 100%;
+  perspective: 4000px;
+  perspective-origin: 50% 48%;
+  transform-style: preserve-3d;
+  z-index: 2;
+}
+
+/* ── 3D Multi-Axis Hologram ───────────────────────────────────────────── */
+.center-hologram {
+  position: absolute;
+  width: 220px;
+  height: 220px;
+  left: 50%;
+  top: 48%;
+  margin-left: -110px;
+  margin-top: -110px;
+  pointer-events: none;
+  transform: translate3d(0, 0, 0);
+  transform-style: preserve-3d;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.persona-canvas {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  /* Wider than the old 200px — a running stride swings the legs/arms out far enough that a narrow
+     canvas leaves too little horizontal camera room to size the model up without the swinging limb
+     clipping the frame edge (see model3d.js's maxRadiusAllowed). Capped at 360 to stay within the
+     402px mobile-frame's own overflow:hidden bounds. Taller than wide (520, vs. the frame's ~526px
+     safe vertical band between the top/bottom scene fades) so the model can be scaled up using the
+     spare vertical room without needing to shrink to fit the width constraint (see
+     maxHeightAllowed). */
+  width: 360px;
+  height: 520px;
+  pointer-events: none;
+}
+
+/* ── Orbit Card 3D Setup ───────────────────────────────────────────────── */
+.orbit-card {
+  position: absolute;
+  width: 360px; /* aligned to match header/nav/settings/chat-bar's exact left/right edges */
+  height: 203.832px; /* exact Figma height, confirmed from the full-screen SVG export's card rects */
+  left: 50%;
+  top: 48%;
+  margin-left: -180px;
+  margin-top: -101.916px;
+  will-change: transform, opacity, height;
+  transform-style: preserve-3d;
+  cursor: pointer;
+  transition: height 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.card-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  border-radius: 35px;
+  background: var(--color-widget-prymary-color-widget, rgba(22, 22, 22, 0.6));
+  border: 1px solid var(--color-widget-prymary-stroke-color-widget, rgba(255, 255, 255, 0.14));
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  padding: 26px 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 34px;
+  box-shadow:
+    0 16px 45px rgba(0, 0, 0, 0.35),
+    0 4px 15px rgba(0, 0, 0, 0.2);
+  transition:
+    box-shadow 0.4s ease,
+    transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1),
+    height 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+  overflow: hidden;
+}
+
+/* Holographic reflection effect */
+.card-inner::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    125deg,
+    rgba(255, 255, 255, 0) 30%,
+    rgba(255, 255, 255, 0.08) 45%,
+    rgba(255, 255, 255, 0.12) 50%,
+    rgba(255, 255, 255, 0.08) 55%,
+    rgba(255, 255, 255, 0) 70%
+  );
+  transform: translateX(-100%);
+  transition: transform 0.5s ease;
+  pointer-events: none;
+  z-index: 5;
+}
+
+.orbit-card:active .card-inner {
+  transform: scale(0.97);
+}
+
+/* Each "section widget" — exact Figma spacing (node 656:3177's inner section: px-30 py-10, gap-19) */
+.card-section {
+  display: flex;
+  flex-direction: column;
+  gap: 19px;
+  padding: 10px 30px;
+  width: 100%;
+}
+
+/* Card Header elements */
+.card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.card-title {
+  font-size: 20px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.2px;
+  color: var(--text-primary);
+  font-family: var(--font-body);
+  line-height: 1;
+}
+
+/* Chevron button inside card header */
+.card-chevron {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--card-chevron-color, rgba(255, 255, 255, 0.7));
+  transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1), color 0.3s ease;
+  flex-shrink: 0;
+}
+
+.card-chevron svg {
+  width: 18px;
+  height: 18px;
+  stroke-width: 2.5;
+}
+
+.orbit-card.expanded .card-chevron {
+  transform: rotate(180deg) scaleX(-1);
+}
+
+/* ── Expanded Card Content (built card by card from exact Figma specs) ──
+   Node 656:3178 "widget open": outer gap between sections = 34px, provided
+   directly by .card-inner's own gap since .card-expanded-content is a
+   direct sibling of .card-section there. Media + Settimana sections reuse
+   the closed card's own .card-body/.ring-container/.ring-label/.value-sep/
+   .value-goal styling since Figma uses the literal same "chart" + "dati
+   grafico" components there. */
+.card-expanded-content {
+  opacity: 0;
+  transition: opacity 0.3s ease 0.1s;
+  display: flex;
+  flex-direction: column;
+  gap: 34px;
+  width: 100%;
+}
+
+.modal-section {
+  display: flex;
+  flex-direction: column;
+  gap: 19px;
+  padding: 10px 30px;
+  width: 100%;
+}
+
+.modal-section-title {
+  font-size: 20px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.2px;
+  color: var(--text-primary);
+  font-family: var(--font-body);
+  line-height: 1;
+}
+
+/* Full-width action buttons ("Vedi foto", "Visualizza Dieta", "Disconnetti", ...) — exact Figma
+   300x40 pill, node 396:664 ("Action Trigger"). Radius 45 clamps to a true pill at this height,
+   same as Figma's own value. */
+.modal-button-row {
+  padding: 0 30px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.modal-button {
+  width: 100%;
+  height: 40px;
+  border-radius: 45px;
+  border: none;
+  color: var(--text-primary);
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+/* Small "+/-" quick-action buttons (Acqua's "Aggiungi" row) — exact Figma 88x30 pill, node
+   396:617 ("Action Quick"). Each button splits its sign and its number into two spans with
+   Figma's own distinct type styles, not one uniform string. */
+.modal-small-button-row {
+  display: flex;
+  gap: 12px;
+  width: 100%;
+  box-sizing: border-box;
+  justify-content: center;
+  /* No horizontal padding here — the parent .modal-section already contributes 30px each side;
+     adding more on top of that squeezed the row and made all 3 buttons flex-shrink below 88px. */
+}
+
+.modal-small-button {
+  width: 88px;
+  height: 30px;
+  flex-shrink: 0;
+  border-radius: 45px;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+  color: var(--text-primary);
+  cursor: pointer;
+  /* Base size for plain-text buttons (e.g. "fatto") that don't use the .btn-sign/.btn-value split —
+     without this they fell back to the browser's tiny default button font. */
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: 16px;
+}
+
+.modal-small-button .btn-sign {
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: 16px;
+}
+
+.modal-small-button .btn-value {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 20px;
+}
+
+/* "Settimana" bar chart — container w-260 h-67, gap-12 to the date row (Figma 398:1831) */
+.week-section {
+  user-select: none; /* drag-to-page-weeks gesture shouldn't select text underneath */
+  touch-action: pan-y;
+  cursor: grab;
+}
+
+/* Clips .pageWeek()'s slide transition to the card's own content width — the outgoing clone and
+   incoming bars/dates translate inside here, but overflow:hidden guarantees neither is ever visible
+   outside the card's alignment, no matter how fast the swipe. Padding (offset by an equal negative
+   margin, so the box's footprint in the section's layout is unchanged) gives the selected-day
+   .bar-halo — which normally overflows ~10.5px past the chart's left/right edge on the first/last
+   day, and up to 10px above its top on a near-100%-height bar — the same room it always had before
+   this clip existed, so a selection at the week's edge is never partially cut off. */
+.week-viewport {
+  position: relative;
+  overflow: hidden;
+  box-sizing: content-box; /* overrides the project's global border-box reset: width below must be
+     the exact 260px content width (matching .bar-chart/.date-row), with padding purely ADDING clip
+     room around it — under border-box, that same padding silently ate into the 260px instead,
+     which was clipping the week's own 7th day off entirely. */
+  width: 260px;
+  padding: 12px 14px 0;
+  margin: -12px -14px 0;
+}
+
+.bar-group {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 260px;
+}
+
+.bar-chart {
+  display: flex;
+  align-items: flex-end;
+  gap: 35px;
+  height: 67px;
+  width: 260px;
+}
+
+.bar-col {
+  position: relative;
+  width: 7px;
+  height: 100%;
+  display: flex;
+  align-items: flex-end;
+}
+
+/* The visible bar is only 7px wide — far too narrow to reliably tap. This invisible pseudo-element
+   extends the real click target into half of each neighboring 35px gap (tiling edge-to-edge with
+   the neighboring day's own hit area), making every day easy to select without widening the bar itself. */
+.bar-col::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: -17.5px;
+  right: -17.5px;
+}
+
+.bar-fill {
+  width: 100%;
+  border-radius: 4px;
+  position: relative;
+  z-index: 1;
+}
+
+/* Filled halo framing "today"'s bar — exact Figma highlight technique on the current-day pill */
+.bar-halo {
+  position: absolute;
+  left: 50%;
+  bottom: -10px;
+  transform: translateX(-50%);
+  width: 28px;
+  background-color: currentColor;
+  border-radius: 14px;
+  opacity: 0.3;
+}
+
+.date-row {
+  display: flex;
+  align-items: center;
+  gap: 35px;
+  width: 261px;
+}
+
+.date-label {
+  position: relative;
+  width: 7px;
+  height: 16px;
+  color: var(--text-secondary);
+}
+
+/* text-align:center doesn't symmetrically overflow content wider than its box in this layout
+   (verified: two-digit days rendered flush against the box's left edge, overflowing only to the
+   right, so "10"+ never actually sat centered under their bar). Centering the digits explicitly
+   via transform sidesteps that entirely and works the same regardless of 1 or 2 digits. */
+.date-label-text {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  font-family: var(--font-display);
+  font-size: 12px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+/* Same enlarged invisible tap target as .bar-col::before, so the day number is just as easy to hit. */
+.date-label::before {
+  content: '';
+  position: absolute;
+  top: -8px;
+  bottom: -8px;
+  left: -17.5px;
+  right: -17.5px;
+}
+
+.date-label.active {
+  color: var(--text-primary);
+}
+
+.modal-bottom-row {
+  display: flex;
+  align-items: flex-end;
+  gap: 19px;
+}
+
+/* Card Body elements */
+.card-body {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
+.ring-container {
+  width: 80px;
+  height: 80px;
+  flex-shrink: 0;
+  position: relative;
+}
+
+.ring-center-icon {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+}
+
+.card-desc {
+  font-size: 11px;
+  color: var(--text-secondary);
+  margin-top: 4px;
+  width: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Bind exercise check styling to orbit-card done state */
+.orbit-card.done .exercise-checkbox {
+  background: var(--theme-color);
+  border-color: var(--theme-color);
+  box-shadow: 0 0 8px rgba(var(--theme-color-rgb), 0.4);
+}
+
+.orbit-card.done .exercise-checkbox svg {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.orbit-card.done .ring-label-title {
+  color: var(--text-secondary);
+  text-decoration: line-through;
+}
+
+.ring-container svg:not(.card-graph-svg):not(.card-weekly-svg) {
+  width: 100%;
+  height: 100%;
+  transform: scaleX(-1) rotate(-90deg);
+}
+
+.card-weekly-svg {
+  width: 100%;
+  height: 100%;
+}
+
+.ring-bg {
+  fill: none;
+  stroke-width: 9;
+}
+
+.ring-progress {
+  fill: none;
+  stroke-width: 9;
+  stroke-linecap: butt;
+  transition: stroke-dashoffset 1.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.ring-label {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.ring-label-title {
+  font-size: 24px;
+  font-weight: 700;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  font-family: var(--font-body);
+}
+
+.metric-icon {
+  width: 20px;
+  height: 20px;
+  display: inline-block;
+  vertical-align: middle;
+  margin-right: 7px;
+  filter: drop-shadow(0 2px 5px rgba(var(--card-theme-rgb), 0.3));
+}
+
+.ring-label-value {
+  font-size: 20px;
+  font-weight: 700;
+  font-family: var(--font-display);
+}
+
+.value-sep {
+  font-size: 24px;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.4);
+}
+
+.value-goal {
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.4);
+}
+
+/* ── Floating Dot Page Indicators ──────────────────────────────────────── */
+.dot-indicators {
+  display: none;
+}
+
+.indicator-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.25);
+  transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+  cursor: pointer;
+}
+
+.indicator-dot.active {
+  background: var(--theme-color);
+  transform: scale(1.4);
+  box-shadow: 0 0 12px var(--theme-color);
+}
+
+/* ── Bottom Navigation Tab Bar ────────────────────────────────────────── */
+.bottom-nav {
+  position: absolute;
+  bottom: 26px;
+  left: 50%;
+  width: 360px; /* exact Figma "navigation bar" size, node 661:5000 */
+  margin-left: -180px;
+  box-sizing: border-box;
+  z-index: 9000;
+  display: flex;
+  height: var(--bar-size-bar-big-h, 82px);
+  padding: 5px 31px;
+  align-items: center;
+  justify-content: center;
+  gap: 19px;
+  border-radius: 56px;
+  border: 1px solid var(--color-widget-prymary-stroke-color-widget, rgba(255, 255, 255, 0.14));
+  background: rgba(22, 22, 22, 0.60);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  box-shadow:
+    0 16px 45px rgba(0, 0, 0, 0.45),
+    0 4px 15px rgba(0, 0, 0, 0.25);
+  transition: opacity 0.25s ease; /* views that replace this bar's own slot (Carica foto, Foto,
+     Esecuzione) fade its opacity via JS — without this it just snapped instantly instead of
+     fading like every other element in that same transition. Matches .scene's own 0.25s (not
+     those views' 0.4s) since this bar reappears in lockstep with the scene/cards, not the view. */
+}
+
+.nav-tab {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  font-size: 12px; /* exact Figma label size */
+  font-weight: 700;
+  font-family: var(--font-body);
+  cursor: pointer;
+  transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+  flex: 1;
+  text-align: center;
+  padding: 4px 0;
+  border-radius: 22px;
+  outline: none;
+  min-width: 0;
+}
+
+/* Per-tab color shown at all times (muted when inactive, full when active) */
+[data-tab="profile"] { color: rgba(241, 158, 76, 0.3); }
+[data-tab="diet"]    { color: rgba(76, 217, 100, 0.3); }
+[data-tab="gym"]     { color: rgba(255, 94, 126, 0.3); }
+[data-tab="coach"]   { color: rgba(217, 217, 217, 0.3); }
+
+.nav-icon {
+  width: 36px; /* exact Figma icon-set size, node 331:2275 — uniform 36x36 across every icon, never resized on tap */
+  height: 36px;
+  flex-shrink: 0;
+}
+
+/* Active tab: full color per section */
+.nav-tab.active {
+  color: var(--theme-color);
+}
+
+/* Per-tab active colors from Figma */
+[data-tab="profile"].nav-tab.active { color: #F19E4C; }
+[data-tab="diet"].nav-tab.active    { color: #4CD964; }
+[data-tab="gym"].nav-tab.active     { color: #FF5E7E; }
+[data-tab="coach"].nav-tab.active   { color: #D9D9D9; }
+
+/* ── Graph Container inside cards ───────────────────────────────────────── */
+.graph-container {
+  overflow: visible !important;
+}
+
+.card-graph-svg {
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  transform: rotate(0deg);
+}
+
+.graph-path {
+  stroke-dasharray: 200;
+  stroke-dashoffset: 200;
+  animation: drawGraph 1.6s cubic-bezier(0.25, 0.8, 0.25, 1) forwards;
+}
+
+.graph-area-path {
+  opacity: 0;
+  animation: fadeInArea 0.8s ease 0.6s forwards;
+}
+
+.graph-dot {
+  opacity: 0;
+  animation: fadeInArea 0.4s ease 1.2s forwards;
+}
+
+.graph-dot-pulse {
+  transform-origin: 59px 18px;
+  animation: pulseDot 2s infinite ease-in-out;
+}
+
+@keyframes drawGraph {
+  to { stroke-dashoffset: 0; }
+}
+
+@keyframes fadeInArea {
+  to { opacity: 1; }
+}
+
+@keyframes pulseDot {
+  0%, 100% { transform: scale(0.85); opacity: 0.2; }
+  50% { transform: scale(1.3); opacity: 0.6; }
+}
+
+/* ── Dedicated View Containers ─────────────────────────────────────────── */
+.view-container {
+  position: absolute;
+  top: 140px;
+  bottom: 100px;
+  left: 20px;
+  right: 20px;
+  z-index: 10;
+  overflow-y: auto;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(15px);
+  transition: opacity 0.5s cubic-bezier(0.25, 0.8, 0.25, 1), transform 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
+  scrollbar-width: none; /* Hide scrollbar for Firefox */
+}
+
+.view-container::-webkit-scrollbar {
+  display: none; /* Hide scrollbar for Chrome/Safari */
+}
+
+.view-container.active {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateY(0);
+}
+
+.view-content-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding-bottom: 20px;
+}
+
+.section-title {
+  font-family: var(--font-display);
+  font-size: 20px;
+  font-weight: 700;
+  color: #fff;
+  letter-spacing: -0.3px;
+}
+
+/* ── Dieta UI Styles ───────────────────────────────────────────────────── */
+.macros-card {
+  background: var(--bg-card);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--border-card);
+  border-radius: 24px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.macros-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 13px;
+  color: var(--text-secondary);
+}
+
+.macro-kcal {
+  color: #fff;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.macro-bar-container {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.macro-bar-info {
+  display: flex;
+  justify-content: space-between;
+  font-size: 12px;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.macro-val {
+  color: var(--text-secondary);
+  font-size: 11px;
+}
+
+.macro-progress-track {
+  height: 8px;
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.macro-progress-fill {
+  height: 100%;
+  border-radius: 4px;
+  transition: width 1s ease-out;
+}
+
+.meals-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.meal-item {
+  background: var(--bg-card);
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+  border: 1px solid var(--border-card);
+  border-radius: 20px;
+  padding: 12px 14px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  transition: transform 0.3s ease, border-color 0.3s ease;
+}
+
+.meal-item:active {
+  transform: scale(0.98);
+}
+
+.meal-icon-wrap {
+  width: 38px;
+  height: 38px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+}
+
+.meal-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  flex: 1;
+  min-width: 0;
+}
+
+.meal-name {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 14px;
+  color: #fff;
+}
+
+.meal-desc {
+  font-size: 11px;
+  color: var(--text-secondary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.meal-kcal {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 13px;
+  color: #fff;
+}
+
+/* ── Gym/Palestra UI Styles ───────────────────────────────────────────── */
+.gym-header-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.workout-badge {
+  background: rgba(var(--theme-color-rgb), 0.15);
+  border: 1px solid rgba(var(--theme-color-rgb), 0.3);
+  color: var(--theme-color);
+  font-family: var(--font-display);
+  font-size: 11px;
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: 12px;
+  transition: all 0.5s ease;
+}
+
+.workout-status-card {
+  background: var(--bg-card);
+  backdrop-filter: blur(20px);
+  border: 1px solid var(--border-card);
+  border-radius: 24px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.workout-progress-info {
+  display: flex;
+  justify-content: space-between;
+  font-size: 12px;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.workout-progress-track {
+  height: 8px;
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.workout-progress-fill {
+  height: 100%;
+  background: var(--theme-color);
+  box-shadow: 0 0 10px rgba(var(--theme-color-rgb), 0.5);
+  border-radius: 4px;
+  transition: width 1s ease-out, background-color 0.5s ease;
+}
+
+.exercise-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.exercise-item {
+  background: var(--bg-card);
+  backdrop-filter: blur(15px);
+  border: 1px solid var(--border-card);
+  border-radius: 20px;
+  padding: 14px 16px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.exercise-item:active {
+  transform: scale(0.98);
+}
+
+.exercise-checkbox {
+  width: 20px;
+  height: 20px;
+  border-radius: 6px;
+  border: 2px solid rgba(255, 255, 255, 0.25);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  color: #fff;
+}
+
+.exercise-checkbox svg {
+  width: 12px;
+  height: 12px;
+  opacity: 0;
+  transform: scale(0.5);
+  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.exercise-item.done .exercise-checkbox {
+  background: var(--theme-color);
+  border-color: var(--theme-color);
+  box-shadow: 0 0 8px rgba(var(--theme-color-rgb), 0.4);
+}
+
+.exercise-item.done .exercise-checkbox svg {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.exercise-item.done .exercise-name {
+  color: var(--text-secondary);
+  text-decoration: line-through;
+}
+
+.exercise-details {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.exercise-name {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 14px;
+  color: #fff;
+  transition: all 0.3s ease;
+}
+
+.exercise-stats {
+  font-size: 11px;
+  color: var(--text-secondary);
+}
+
+/* ── Settings View ─────────────────────────────────────────────────────── */
+.settings-view {
+  position: absolute;
+  top: 192px;
+  bottom: 128px;
+  left: 50%;
+  width: 360px; /* matches the header/nav bar's exact centered width */
+  margin-left: -180px;
+  box-sizing: border-box;
+  z-index: 50;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  overflow-y: auto;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity 0.4s ease;
+  scrollbar-width: none;
+}
+
+.settings-view::-webkit-scrollbar {
+  display: none;
+}
+
+.settings-view.active {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+
+.settings-item {
+  flex-shrink: 0;
+  width: 100%;
+  height: 40px;
+  background: rgba(217, 217, 217, 0.3);
+  border: none;
+  border-radius: 45px;
+  color: #ffffff;
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background 0.3s ease, transform 0.15s ease;
+}
+
+.settings-item:active {
+  background: rgba(217, 217, 217, 0.45);
+  transform: scale(0.98);
+}
+
+/* ── Coach Chat View ───────────────────────────────────────────────────── */
+/* Spans the full frame height, like .scene does for the orbit cards — messages scroll freely
+   behind the (transparent) header and nav/input bars instead of being clipped by a boundary. */
+.coach-view {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  width: 360px; /* matches header/nav/chat-bar's exact centered edges, so bubbles align the same way */
+  margin-left: -180px;
+  box-sizing: border-box;
+  z-index: 50;
+  display: flex;
+  flex-direction: column;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity 0.4s ease;
+}
+
+.coach-view.active {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+
+.chat-messages {
+  flex: 1;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 10px; /* exact Figma spacing, node 661:6548 */
+  padding-top: 130px; /* clears the header at rest, same offset the cards use */
+  padding-bottom: 178px; /* last message rests exactly 20px above the input bar's top edge (118 + 40 + 20) */
+  scrollbar-width: none;
+}
+
+.chat-messages::-webkit-scrollbar {
+  display: none;
+}
+
+/* Exact Figma "chat" bubble, node 509:2968: fixed 271px width, uniform 35px radius, no speech tail.
+   Figma nests two 10px-padded wrappers around a fixed 211px text column (271 - 2*10 - 2*10 - 2*10
+   centering slack = 211), which is equivalent to a single 20px vertical / 30px horizontal padding. */
+.chat-bubble {
+  width: 271px;
+  box-sizing: border-box;
+  padding: 20px 30px;
+  border-radius: 35px;
+  border: 1px solid var(--color-widget-prymary-stroke-color-widget, rgba(255, 255, 255, 0.14));
+  backdrop-filter: blur(20px); /* same frosted-glass treatment as .card-inner, so bubbles match the cards */
+  -webkit-backdrop-filter: blur(20px);
+  font-size: 16px;
+  font-weight: 300; /* exact Figma spec: "Futura Lt BT", style Light */
+  line-height: 1.3;
+  font-family: var(--font-chat);
+  white-space: pre-line;
+  color: #ffffff;
+}
+
+.chat-bubble.coach {
+  align-self: flex-start;
+  background: var(--color-widget-prymary-color-widget, rgba(22, 22, 22, 0.6));
+}
+
+.chat-bubble.user {
+  align-self: flex-end;
+  background: var(--color-widget-secondary-color-widget, rgba(56, 56, 56, 0.6));
+}
+
+/* A "Segnala Sgarro" photo sent into the chat — same bubble, just thin padding so the image
+   reads edge-to-edge instead of sitting inside the usual 20px/30px text padding. */
+.chat-bubble-image {
+  padding: 6px;
+}
+
+.chat-bubble-img {
+  display: block;
+  width: 100%;
+  max-width: 220px;
+  border-radius: 25px;
+}
+
+/* Floats above the chat like the nav bar does above the cards — not part of the scrolling column.
+   Exact Figma "chat bar" size, node 702:5639: 360px wide, centered like header/nav/settings-view. */
+.chat-input-bar {
+  position: absolute;
+  bottom: 118px; /* nav bar top edge (26 + 82 = 108) + 10px gap */
+  left: 50%;
+  width: 360px;
+  margin-left: -180px;
+  box-sizing: border-box;
+  z-index: 1501; /* above .scene-fade-bottom's 1500, so the veil fades the messages but not this bar */
+  display: flex;
+  align-items: center;
+  gap: 0;
+  height: 40px;
+  padding: 5px 9px 5px 31px; /* exact Figma pl-31/pr-9/py-5, node 702:5639 */
+  background: rgba(56, 56, 56, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  backdrop-filter: blur(20px); /* same frosted-glass treatment as .bottom-nav, so the bar matches the cards */
+  -webkit-backdrop-filter: blur(20px);
+  border-radius: 45px;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity 0.4s ease;
+}
+
+.chat-input-bar.active {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+
+.chat-input {
+  flex: 1;
+  min-width: 0;
+  height: 100%;
+  background: none;
+  border: none;
+  padding: 0;
+  color: #fff;
+  font-size: 13px;
+  font-family: var(--font-body);
+  outline: none;
+}
+
+.chat-input::placeholder {
+  color: rgba(255, 255, 255, 0.4);
+}
+
+.chat-send-btn {
+  width: 30px;
+  height: 30px;
+  margin-right: 15px; /* Figma's icon sits centered in a 60px-wide slot before the bar's own 9px pr, so its true center is 39px from the edge, not 24px */
+  border-radius: 50%;
+  background: none;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: rgba(255, 255, 255, 0.8);
+  flex-shrink: 0;
+  cursor: pointer;
+}
+
+.chat-send-btn:active {
+  transform: scale(0.92);
+}
+
+/* ── Workout Detail View (Allenamento card → "Visualizza Scheda"), node 702:6684 ──────────── */
+.workout-view {
+  position: absolute;
+  top: 130px; /* clears the header, same offset the cards/chat use */
+  bottom: 118px; /* nav bar top edge (26 + 82 = 108) + 10px gap, same convention as the chat input bar */
+  left: 50%;
+  width: 360px;
+  margin-left: -180px;
+  box-sizing: border-box;
+  z-index: 50;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  overflow-y: auto;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity 0.4s ease;
+  scrollbar-width: none;
+}
+
+.workout-view::-webkit-scrollbar {
+  display: none;
+}
+
+.workout-view.active {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+
+/* Same visual recipe as .card-inner (frosted widget background), but height:auto since this is a
+   plain flowing list, not a fixed-height 3D carousel card. */
+.workout-card {
+  width: 100%;
+  flex-shrink: 0;
+  box-sizing: border-box;
+  border-radius: 35px;
+  background: var(--color-widget-prymary-color-widget, rgba(22, 22, 22, 0.6));
+  border: 1px solid var(--color-widget-prymary-stroke-color-widget, rgba(255, 255, 255, 0.14));
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  padding: 26px 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 34px;
+  overflow: hidden;
+}
+
+.workout-card .card-expanded-content {
+  display: none;
+}
+
+.workout-card.expanded .card-chevron {
+  transform: rotate(180deg) scaleX(-1);
+}
+
+/* ── Calendar bar (node 628:1424): pages the Workout/Diet detail views through other days ──── */
+/* Positioned exactly like .chat-input-bar (fixed above the still-visible nav bar), not inline in
+   the scrolling list — same treatment the chat section gives its own input bar. */
+.calendar-bar {
+  position: absolute;
+  bottom: 118px; /* nav bar top edge (26 + 82 = 108) + 10px gap, matches .chat-input-bar exactly */
+  left: 50%;
+  width: 360px;
+  margin-left: -180px;
+  box-sizing: border-box;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 63px; /* exact Figma value — safe from shifting because .calendar-date-text has a fixed
+                width below, so the group's total width never changes as the date pages */
+  background: rgba(22, 22, 22, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 41px;
+  backdrop-filter: blur(20px); /* same frosted-glass treatment as .chat-input-bar/.bottom-nav */
+  -webkit-backdrop-filter: blur(20px);
+  z-index: 1501; /* above .scene-fade-bottom's 1500, like .chat-input-bar */
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity 0.4s ease;
+}
+
+.calendar-bar.active {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+
+.calendar-nav-btn {
+  width: 56px;
+  height: 56px; /* generous tap target — the visible icon itself matches .card-chevron exactly */
+  flex-shrink: 0;
+  border: none;
+  background: none;
+  padding: 0;
+  color: #79DA5E; /* same bright green in every section — exact match to the reference screenshot */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.calendar-nav-btn svg {
+  width: 18px; /* exact .card-chevron svg size */
+  height: 18px;
+  stroke-width: 2.5;
+}
+
+.calendar-nav-btn:active {
+  transform: scale(0.9);
+}
+
+.calendar-date-text {
+  width: 100px; /* fixed — exact Figma "Frame 77" width, so paging never changes the flex layout's
+                   total width and the arrows never shift regardless of digit count */
+  text-align: center;
+  font-family: var(--font-display);
+  font-size: 20px;
+  font-weight: 700;
+  color: #fff;
+  white-space: nowrap;
+}
+
+/* ── Workout Execution View (exercise card → "Visualizza esecuzione"), node 745:10922 ───────── */
+.execution-view {
+  position: absolute;
+  top: 130px;
+  left: 50%;
+  width: 360px;
+  height: 633px; /* exact Figma "Video photo" size */
+  margin-left: -180px;
+  box-sizing: border-box;
+  z-index: 50;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity 0.4s ease;
+}
+
+.execution-view.active {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+
+.execution-image-frame {
+  width: 100%;
+  height: 100%;
+  border-radius: 35px;
+  border: 1px solid var(--color-widget-prymary-stroke-color-widget, rgba(255, 255, 255, 0.14));
+  overflow: hidden;
+}
+
+.execution-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.execution-button-bar {
+  position: absolute;
+  bottom: 26px; /* replaces the nav bar's own slot — Figma shows no nav bar on this screen */
+  left: 50%;
+  width: 360px;
+  margin-left: -180px;
+  box-sizing: border-box;
+  z-index: 9001; /* above the nav bar it visually replaces */
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity 0.4s ease;
+}
+
+.execution-continue-btn {
+  background: rgba(241, 75, 106, 0.3); /* workouts theme color, matches every other Allenamento-family button */
+}
+
+.execution-button-bar.active {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+
+/* ── Diet Detail View (Dieta/Grassi/Carboidrati/Proteine → "Visualizza Dieta"), node 702:7937 ── */
+.diet-view {
+  position: absolute;
+  top: 130px;
+  bottom: 118px;
+  left: 50%;
+  width: 360px;
+  margin-left: -180px;
+  box-sizing: border-box;
+  z-index: 50;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  overflow-y: auto;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity 0.4s ease;
+  scrollbar-width: none;
+}
+
+.diet-view::-webkit-scrollbar {
+  display: none;
+}
+
+.diet-view.active {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+
+.diet-card {
+  width: 100%;
+  flex-shrink: 0;
+  box-sizing: border-box;
+  border-radius: 35px;
+  background: var(--color-widget-prymary-color-widget, rgba(22, 22, 22, 0.6));
+  border: 1px solid var(--color-widget-prymary-stroke-color-widget, rgba(255, 255, 255, 0.14));
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  padding: 26px 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 34px;
+  overflow: hidden;
+}
+
+.diet-card .card-expanded-content {
+  display: none;
+}
+
+.diet-card.expanded .card-chevron {
+  transform: rotate(180deg) scaleX(-1);
+}
+
+/* Already-eaten meals recede (dimmed title/label/value/"Pasto" section) regardless of expand
+   state — only the current/upcoming meals stay bright. Exact Figma states, node 702:8560
+   (done/dim) vs 702:7940 (not done/bright). The ring's own color and the chevron are deliberately
+   left untouched — only the text dims. */
+.diet-card.done .card-title,
+.diet-card.done .ring-label-title,
+.diet-card.done .modal-section-title,
+.diet-card.done .diet-meal-desc {
+  color: rgba(255, 255, 255, 0.4);
+}
+
+/* "PASTO" description text — exact Figma 16px regular white */
+.diet-meal-desc {
+  font-size: 16px;
+  font-weight: 400;
+  color: var(--text-primary);
+  font-family: var(--font-body);
+  line-height: 1.4;
+  margin: 0;
+  width: 100%;
+}
+
+/* ── Segnala Sgarro View (Dieta card → "Segnala Sgarro"), nodes 745:10783 / 745:10664 ───────── */
+.sgarro-view {
+  position: absolute;
+  top: 130px;
+  left: 50%;
+  width: 360px;
+  height: 633px; /* exact Figma "Video photo" size, matches the Esecuzione screen's own frame */
+  margin-left: -180px;
+  box-sizing: border-box;
+  z-index: 50;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity 0.4s ease;
+}
+
+.sgarro-view.active {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+
+.sgarro-frame {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  border-radius: 35px;
+  border: 1px solid var(--color-widget-prymary-stroke-color-widget, rgba(255, 255, 255, 0.14));
+  overflow: hidden;
+  box-sizing: border-box;
+  background: #000;
+}
+
+.sgarro-preview-image {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Camera "shutter" button — exact Figma 52px circle, centered 26px above the frame's own bottom edge */
+.sgarro-shutter-btn {
+  position: absolute;
+  left: 50%;
+  bottom: 26px;
+  transform: translateX(-50%);
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.85);
+  border: none;
+  cursor: pointer;
+}
+
+.sgarro-shutter-btn:active {
+  transform: translateX(-50%) scale(0.92);
+}
+
+/* Exact Figma node 728:9578: fixed 3x4 grid that exactly fills the padded frame (360x633 frame,
+   33px inset each side → 294x567 content box) — 12 photos fit with no scrolling, unlike every
+   other section in the app which scrolls. */
+.sgarro-gallery-grid {
+  position: absolute;
+  inset: 33px;
+  display: none;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(4, 1fr);
+  gap: 10px;
+}
+
+.sgarro-gallery-grid.active {
+  display: grid;
+}
+
+.sgarro-gallery-thumb {
+  width: 100%;
+  height: 100%;
+  min-width: 0; /* without this, grid items refuse to shrink below their image's intrinsic size */
+  min-height: 0;
+  cursor: pointer;
+  border: none;
+  padding: 0;
+  overflow: hidden;
+}
+
+.sgarro-gallery-thumb img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  pointer-events: none;
+}
+
+.sgarro-button-bar {
+  position: absolute;
+  bottom: 26px; /* replaces the nav bar's own slot, same convention as the Esecuzione screen */
+  left: 50%;
+  width: 360px;
+  margin-left: -180px;
+  box-sizing: border-box;
+  z-index: 9001;
+  display: flex;
+  gap: 24px; /* exact Figma gap between the two 168px buttons */
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity 0.4s ease;
+}
+
+.sgarro-button-bar.active {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+
+/* Inactive tab: the usual 30%-alpha tint. Active tab: the exact-opposite convention from every
+   other button in the app — Figma specs a *solid* fill here, not a translucent one. Colors are set
+   inline by JS (applySgarroTheme) since this bar is reused for two different theme colors (Dieta's
+   green, "Il mio corpo"'s pink) rather than being fixed to one. */
+.sgarro-tab-btn {
+  flex: 1;
+  height: 40px;
+  border-radius: 45px;
+  border: none;
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: 16px;
+  color: var(--text-primary);
+  cursor: pointer;
+}
+
+/* ── Photo Library View (node 926:4389 "Il mio corpo" / node 927:4590 "Impostazioni") ───────── */
+/* Same frame treatment as the capture flow, but the grid is always shown (no camera/tab toggle) —
+   a fixed archive of previously confirmed photos, multi-select to delete. */
+.photolib-view {
+  position: absolute;
+  top: 130px;
+  left: 50%;
+  width: 360px;
+  height: 633px;
+  margin-left: -180px;
+  box-sizing: border-box;
+  z-index: 50;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity 0.4s ease;
+}
+
+.photolib-view.active {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+
+.photolib-frame {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  border-radius: 35px;
+  border: 1px solid var(--color-widget-prymary-stroke-color-widget, rgba(255, 255, 255, 0.14));
+  overflow: hidden;
+  box-sizing: border-box;
+  background: rgba(22, 22, 22, 0.6);
+}
+
+.photolib-grid {
+  position: absolute;
+  inset: 33px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(4, 1fr);
+  gap: 10px;
+}
+
+.photolib-thumb {
+  width: 100%;
+  height: 100%;
+  min-width: 0;
+  min-height: 0;
+  cursor: pointer;
+  border: none;
+  padding: 0;
+  overflow: hidden;
+  opacity: 1;
+  transition: opacity 0.25s ease;
+}
+
+.photolib-thumb img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  pointer-events: none;
+}
+
+/* Selected photos stay at full opacity; everything else dims once at least one photo is
+   selected — no border/ring on the selected ones, opacity alone carries the state. */
+.photolib-thumb.dimmed {
+  opacity: 0.35;
+}
+
+.photolib-button-bar {
+  position: absolute;
+  bottom: 26px;
+  left: 50%;
+  width: 360px;
+  margin-left: -180px;
+  box-sizing: border-box;
+  z-index: 9001;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity 0.4s ease;
+}
+
+.photolib-button-bar.active {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+
+.photolib-delete-btn:disabled {
+  cursor: default;
+}
+
+/* ── Film Grain Overlay ────────────────────────────────────────────────── */
+/* Fades content out before it reaches the header/nav zones — the 3D hologram/cards on the data
+   tabs and the chat messages on the Coach tab alike. Exact Figma gradient rectangles, node
+   661:5064 ("opacity" > Rectangle 17/16, each 174px tall, 874px-tall frame). */
+.scene-fade-top {
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 174px;
+  background: linear-gradient(180deg, var(--bg-darkest) 0%, var(--bg-darkest) 59%, rgba(4, 4, 6, 0) 100%);
+  z-index: 1500;
+  pointer-events: none;
+  transition: opacity 0.25s ease;
+}
+
+.scene-fade-bottom {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 174px;
+  background: linear-gradient(180deg, rgba(4, 4, 6, 0) 0%, var(--bg-darkest) 35%, var(--bg-darkest) 100%);
+  z-index: 1500;
+  pointer-events: none;
+  transition: opacity 0.25s ease;
+}
+
+.grain-overlay {
+  position: absolute;
+  inset: -50%;
+  width: 200%;
+  height: 200%;
+  z-index: 99999;
+  pointer-events: none;
+  opacity: 0.016;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}

@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="description" content="Homeo - La tua app di salute e fitness personale.">
+  <title>Homeo</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://api.fontshare.com/v2/css?f[]=satoshi@400,500,700,900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css?v=62">
+  <script type="importmap">
+  {
+    "imports": {
+      "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
+      "three/addons/": "https://unpkg.com/three@0.160.0/examples/jsm/"
+    }
+  }
+  </script>
+</head>
+<body>
+
+  <!-- Mobile Frame Emulator with Premium Bezel -->
+  <main class="mobile-frame" id="frame">
+    
+    <!-- iOS Status Bar Mockup -->
+    <header class="status-bar" id="statusBar">
+      <div class="status-time" id="statusTime">11:50</div>
+      <div class="status-icons" aria-label="Stato connessione e batteria">
+        <!-- Wifi -->
+        <svg width="16" height="12" viewBox="0 0 16 12" fill="currentColor">
+          <path d="M8 12a2 2 0 1 1 0-4 2 2 0 0 1 0 4Zm-4.2-5.6a6 6 0 0 1 8.4 0l-1.4 1.4a4 4 0 0 0-5.6 0L3.8 6.4Zm-2.8-2.8a10 10 0 0 1 14 0L13.6 5a8 8 0 0 0-11.2 0L1 3.6Z"/>
+        </svg>
+        <!-- 5G label -->
+        <span style="font-size: 11px; font-weight: 700; letter-spacing: 0.5px;">5G</span>
+        <!-- Battery -->
+        <svg width="25" height="12" viewBox="0 0 25 12" fill="currentColor">
+          <rect x="0" y="1" width="22" height="10" rx="3" fill="none" stroke="currentColor" stroke-width="1.2"/>
+          <rect x="1.5" y="2.5" width="17" height="7" rx="1.5"/>
+          <path d="M23 4v4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+        </svg>
+      </div>
+    </header>
+
+    <!-- Main App Header — Homeo style -->
+    <section class="app-header" id="appHeader">
+      <div class="header-left" id="headerLeft">
+        <div class="header-avatar" id="headerAvatar"><img src="assets/img/coach-avatar.png" alt="Guido Rizzo" class="header-avatar-img"></div>
+        <div class="header-text-col">
+          <h1 class="header-title" id="headerTitle">Homeo</h1>
+          <span class="header-subtitle" id="headerSubtitle">Benvenuto</span>
+        </div>
+      </div>
+      <div class="header-right">
+        <!-- Settings Icon -->
+        <button class="settings-btn" id="settingsBtn" aria-label="Impostazioni">
+          <svg id="settingsIconGear" width="24" height="24" viewBox="0 0 25 25" fill="none">
+            <path d="M14.2861 2.08392C14.2861 2.69978 14.7275 3.21961 15.3159 3.40131C15.8827 3.57632 16.4268 3.8027 16.9429 4.07521C17.4873 4.36269 18.1666 4.30715 18.602 3.87192L19.1696 3.30459C19.6703 2.8041 20.4819 2.80419 20.9825 3.30479L21.6948 4.01708C22.1956 4.51783 22.1955 5.32974 21.6946 5.83038L21.1289 6.39581C20.6933 6.83128 20.6376 7.51105 20.9251 8.05582C21.1977 8.57225 21.424 9.11685 21.5989 9.68404C21.7804 10.2726 22.3002 10.7139 22.9161 10.7139H23.7179C24.426 10.7139 25 11.2879 25 11.9959V13.0041C25 13.7121 24.426 14.2861 23.7179 14.2861H22.9151C22.2992 14.2861 21.7794 14.7274 21.5977 15.3159C21.4228 15.8825 21.1965 16.4266 20.924 16.9426C20.6365 17.4871 20.6921 18.1667 21.1275 18.6021L21.695 19.1696C22.1957 19.6703 22.1957 20.482 21.695 20.9827L20.9827 21.695C20.482 22.1957 19.6703 22.1957 19.1696 21.695L18.6021 21.1275C18.1667 20.6921 17.4871 20.6365 16.9426 20.924C16.4266 21.1965 15.8825 21.4228 15.3159 21.5977C14.7274 21.7794 14.2861 22.2992 14.2861 22.9151V23.7179C14.2861 24.426 13.7121 25 13.0041 25H11.9959C11.2879 25 10.7139 24.426 10.7139 23.7179V22.9151C10.7139 22.2992 10.2726 21.7794 9.68402 21.5981C9.11688 21.4233 8.57231 21.1973 8.0559 20.925C7.51105 20.6377 6.83128 20.6933 6.39581 21.1289L5.83037 21.6946C5.32973 22.1955 4.51783 22.1956 4.01708 21.6948L3.30479 20.9825C2.80419 20.4819 2.8041 19.6703 3.30459 19.1696L3.87192 18.602C4.30715 18.1666 4.36268 17.4873 4.07536 16.9428C3.80306 16.4267 3.57696 15.8826 3.40214 15.3159C3.2206 14.7274 2.70077 14.2861 2.08492 14.2861H1.28205C0.573994 14.2861 0 13.7121 0 13.0041V11.9959C0 11.2879 0.573994 10.7139 1.28205 10.7139H2.08488C2.70075 10.7139 3.2206 10.2726 3.40181 9.68396C3.57642 9.11679 3.80221 8.57215 4.0744 8.05571C4.36152 7.51092 4.30596 6.83135 3.87051 6.3959L3.30498 5.83038C2.80431 5.3297 2.80431 4.51795 3.30498 4.01728L4.01728 3.30498C4.51795 2.80431 5.3297 2.80431 5.83038 3.30498L6.3959 3.87051C6.83135 4.30596 7.51092 4.36153 8.05562 4.07425C8.5721 3.80185 9.11676 3.57578 9.68398 3.40099C10.2725 3.21962 10.7139 2.69976 10.7139 2.08388V1.28205C10.7139 0.573994 11.2879 0 11.9959 0H13.0041C13.7121 0 14.2861 0.573994 14.2861 1.28205V2.08392ZM12.5 6.54785C9.21285 6.54806 6.54798 9.21283 6.54785 12.5C6.54805 15.7871 9.2129 18.4519 12.5 18.4521C15.7871 18.4519 18.4529 15.7871 18.4531 12.5C18.453 9.21282 15.7872 6.54805 12.5 6.54785Z" fill="currentColor"/>
+          </svg>
+          <svg id="settingsIconClose" width="16" height="16" viewBox="0 0 15.6256 15.6256" fill="none" style="display: none;">
+            <path d="M13.9187 0.292857C14.3093 -0.0975951 14.9423 -0.0976429 15.3328 0.292857C15.7232 0.683364 15.7232 1.31642 15.3328 1.70692L9.22634 7.81239L15.3328 13.9188C15.7231 14.3094 15.7232 14.9424 15.3328 15.3329C14.9423 15.7232 14.3092 15.7232 13.9187 15.3329L7.81228 9.22645L1.70681 15.3329C1.31629 15.7231 0.683185 15.7232 0.292749 15.3329C-0.097679 14.9425 -0.0974873 14.3094 0.292749 13.9188L6.39822 7.81239L0.292749 1.70692C-0.0975802 1.31643 -0.0975711 0.683346 0.292749 0.292857C0.683226 -0.0976194 1.31628 -0.0975246 1.70681 0.292857L7.81228 6.39833L13.9187 0.292857Z" fill="currentColor"/>
+          </svg>
+        </button>
+      </div>
+    </section>
+
+    <!-- Dynamic glow behind the 3D scene -->
+    <div class="glow-bg" id="glowBg"></div>
+
+    <!-- 3D Helix Scene Viewport -->
+    <div class="scene" id="scene">
+      <div class="center-hologram" id="hologram">
+        <canvas class="persona-canvas" id="personaCanvas"></canvas>
+      </div>
+    </div>
+
+    <!-- Fades the 3D hologram out before it reaches the header/nav zones (exact Figma gradient rects, node 661:5064) -->
+    <div class="scene-fade-top" id="sceneFadeTop"></div>
+    <div class="scene-fade-bottom" id="sceneFadeBottom"></div>
+
+    <!-- Card Position Indicators (dots) -->
+    <nav class="dot-indicators" id="dots" aria-label="Selettore scheda"></nav>
+
+    <!-- Bottom Tab Navigation Bar — 4 tabs matching Figma -->
+    <nav class="bottom-nav" id="bottomNav">
+      <!-- Profilo -->
+      <button class="nav-tab active" data-tab="profile" id="tabProfile" style="background: none; border: none; font-family: inherit;">
+        <svg class="nav-icon" viewBox="22 10 16 35" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+          <path d="M23 31.2524C23 32.0036 23.5859 32.5895 24.3371 32.5895C25.0733 32.5895 25.6593 32.0036 25.6593 31.2524V25.4682C25.6593 25.1977 25.8846 24.9874 26.1551 24.9874C26.4255 24.9874 26.6358 25.1977 26.6358 25.4682V42.9862C26.6358 43.7974 27.2969 44.4435 28.1082 44.4435C28.9195 44.4435 29.5805 43.7974 29.5805 42.9862V32.3341C29.5805 32.0637 29.8059 31.8233 30.0763 31.8233C30.3468 31.8233 30.5871 32.0637 30.5871 32.3341V42.9862C30.5871 43.7974 31.2332 44.4435 32.0445 44.4435C32.8558 44.4435 33.5168 43.7974 33.5168 42.9862V25.4682C33.5168 25.1977 33.7272 24.9874 33.9976 24.9874C34.268 24.9874 34.4934 25.1977 34.4934 25.4682V31.2524C34.4934 32.0036 35.0793 32.5895 35.8155 32.5895C36.5667 32.5895 37.1527 32.0036 37.1527 31.2524V24.7921C37.1527 21.4718 34.7187 19.2782 31.1581 19.2782H28.9946C25.4339 19.2782 23 21.4718 23 24.7921V31.2524ZM30.0763 17.5505C31.8942 17.5505 33.3516 16.0932 33.3516 14.2752C33.3516 12.4573 31.8942 11 30.0763 11C28.2584 11 26.8011 12.4573 26.8011 14.2752C26.8011 16.0932 28.2584 17.5505 30.0763 17.5505Z"/>
+        </svg>
+        <span>Profilo</span>
+      </button>
+
+      <!-- Dieta -->
+      <button class="nav-tab" data-tab="diet" id="tabDiet" style="background: none; border: none; font-family: inherit;">
+        <svg class="nav-icon" viewBox="78 10 16 35" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+          <path d="M84.7695 11C85.1233 11.0002 85.4099 11.2869 85.4102 11.6406V22.2324H85.3896C85.2617 23.3925 84.5157 24.3666 83.4873 24.8164V43.0518C83.487 43.7596 82.913 44.333 82.2051 44.333C81.4972 44.333 80.9231 43.7596 80.9229 43.0518V24.8154C79.8947 24.3655 79.1485 23.3924 79.0205 22.2324H79V11.6406C79.0002 11.2869 79.2869 11.0002 79.6406 11C79.9945 11 80.282 11.2868 80.2822 11.6406V18.0518H81.5645V11.6406C81.5647 11.2868 81.8512 11 82.2051 11C82.559 11 82.8455 11.2868 82.8457 11.6406V18.0518H84.1279V11.6406C84.1281 11.2868 84.4156 11 84.7695 11ZM90.5381 11C91.9542 11 93.1025 12.1483 93.1025 13.5645V43.0518C93.1023 43.7596 92.5282 44.333 91.8203 44.333C91.1125 44.3329 90.5383 43.7595 90.5381 43.0518V30.2305C90.5379 29.5227 89.9646 28.9485 89.2568 28.9482C88.5489 28.9482 87.9748 28.3749 87.9746 27.667V13.5645C87.9746 12.1485 89.1221 11.0002 90.5381 11Z"/>
+        </svg>
+        <span>Dieta</span>
+      </button>
+
+      <!-- Attività -->
+      <button class="nav-tab" data-tab="gym" id="tabGym" style="background: none; border: none; font-family: inherit;">
+        <svg class="nav-icon" viewBox="128 11 27 35" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+          <path d="M144.705 18.5505C146.523 18.5505 147.98 17.0932 147.98 15.2752C147.98 13.4573 146.523 12 144.705 12C142.887 12 141.43 13.4573 141.43 15.2752C141.43 17.0932 142.887 18.5505 144.705 18.5505ZM139.567 31.6214L145.321 34.8515L141.61 38.0367C140.814 38.7127 140.829 39.5991 141.309 40.14C141.805 40.6959 142.692 40.8312 143.518 40.125L148.701 35.708C149.407 35.1069 149.302 33.8149 148.446 33.259L142.812 29.5631L143.924 25.6719C144.074 25.116 144.72 25.0409 145.05 25.5217L146.703 27.9405C147.094 28.4964 147.8 28.7218 148.446 28.4213L153.208 26.3028C154.05 25.9273 154.365 25.1912 154.005 24.4249C153.629 23.6737 152.908 23.4483 152.067 23.8239L148.296 25.4915L145.696 21.9008C144.344 20.0379 142.662 19.2716 139.897 19.482L134.624 19.8576C133.782 19.9177 133.211 20.4585 133.091 21.3299L132.385 26.6785C132.25 27.61 132.716 28.256 133.542 28.3462C134.383 28.4213 134.924 27.9405 135.044 27.009L135.69 22.637L137.809 22.4868C138.275 22.4417 138.74 22.7722 138.575 23.3582L137.343 27.655C136.622 30.1941 138.275 30.8853 139.567 31.6214ZM129.516 44.6022C130.071 45.068 130.928 45.1279 131.694 44.3918L136.562 39.5691C136.967 39.1635 137.058 39.0733 137.313 38.4423L139.567 32.6884L139.234 32.5128C138.092 31.8968 137.211 31.2658 136.67 30.5897L134.594 37.2855L129.546 42.3185C128.749 43.0997 128.9 44.0613 129.516 44.6022Z"/>
+        </svg>
+        <span>Attività</span>
+      </button>
+
+      <!-- Coach -->
+      <button class="nav-tab" data-tab="coach" id="tabCoach" style="background: none; border: none; font-family: inherit;">
+        <svg class="nav-icon" viewBox="195 10 14 35" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+          <path d="M206.89 11.4229C207.035 11.0788 207.449 10.9102 207.815 11.0469C208.18 11.1835 208.359 11.5738 208.214 11.918L202.959 24.373C205.684 24.8438 207.794 26.8677 208.112 29.3809C208.113 29.3904 208.121 29.3983 208.132 29.3984C208.144 29.3984 208.153 29.4065 208.154 29.417V33.3711C208.153 34.0788 207.516 34.6521 206.73 34.6523H206.017C205.624 34.6524 205.305 34.94 205.305 35.2939C205.305 35.6479 205.624 35.9345 206.017 35.9346H206.73C207.516 35.9348 208.154 36.5089 208.154 37.2168V43.5273C208.153 43.8812 207.835 44.1679 207.442 44.168H205.206C204.467 44.168 203.85 43.6584 203.787 42.9951L203.207 36.8965C203.146 36.25 202.464 35.8086 201.743 35.8086C198.203 35.8085 195.333 33.2253 195.333 30.0391C195.333 27.1319 197.723 24.727 200.83 24.3281L195.596 11.918C195.451 11.5738 195.63 11.1835 195.995 11.0469C196.361 10.9104 196.775 11.0788 196.92 11.4229L201.905 23.2402L206.89 11.4229ZM201.743 26.9004C199.777 26.9004 198.182 28.3354 198.182 30.1055C198.182 31.8753 199.777 33.3105 201.743 33.3105C203.71 33.3105 205.305 31.8753 205.305 30.1055C205.305 28.3353 203.71 26.9004 201.743 26.9004Z"/>
+        </svg>
+        <span>Coach</span>
+      </button>
+    </nav>
+
+    <!-- Settings View -->
+    <section class="settings-view" id="settingsView">
+      <button class="settings-item">Dati Personali</button>
+      <button class="settings-item" id="leMieFotoBtn">Le mie foto</button>
+      <button class="settings-item" id="fotoCorpoBtn">Foto Corpo</button>
+      <button class="settings-item">Privacy</button>
+      <button class="settings-item">Abbonamento</button>
+      <button class="settings-item">Cambia Coach</button>
+      <button class="settings-item">Notifiche</button>
+      <button class="settings-item">Archivio Documenti</button>
+      <button class="settings-item">Monitoraggio Automatico</button>
+      <button class="settings-item">Sincronizzazione Wearable</button>
+      <button class="settings-item">Log Out</button>
+      <button class="settings-item">Elimina Account</button>
+    </section>
+
+    <!-- Coach Chat View — messages scroll full-height behind the (transparent) header/nav, exactly
+         like the orbit cards do, instead of being clipped by an opaque boundary -->
+    <section class="coach-view" id="coachView">
+      <div class="chat-messages" id="chatMessages"></div>
+    </section>
+    <div class="chat-input-bar" id="chatInputBar">
+      <input type="text" class="chat-input" id="chatInput" placeholder="Scrivi un messaggio...">
+      <button class="chat-send-btn" id="chatSendBtn" aria-label="Invia">
+        <svg width="16" height="16" viewBox="0 0 16.0569 15.9997" fill="none">
+          <path d="M6.21094 0.3856C6.55007 -0.0500497 7.17842 -0.128186 7.61426 0.210795L15.0918 6.02623C16.3786 7.02713 16.3786 8.97261 15.0918 9.97349L7.61426 15.7889C7.17845 16.1278 6.55007 16.0497 6.21094 15.6141C5.87197 15.1783 5.95014 14.5499 6.38574 14.2108L13.085 8.99986H1C0.447756 8.99986 6.59659e-05 8.55209 0 7.99986C0 7.44757 0.447715 6.99986 1 6.99986H13.085L6.38574 1.78892C5.95012 1.44981 5.87202 0.821432 6.21094 0.3856Z" fill="currentColor"/>
+        </svg>
+      </button>
+    </div>
+
+    <!-- Workout Detail View (Allenamento card → "Visualizza Scheda"), node 702:6684 -->
+    <section class="workout-view" id="workoutView"></section>
+
+    <!-- Calendar bar (node 628:1424): pages the workout view through other days, positioned like
+         .chat-input-bar above the (still-visible) nav bar. Unlike the diet one below, both
+         directions stay enabled — this previews a recurring weekly plan, not a historical log. -->
+    <div class="calendar-bar" id="workoutCalendarBar">
+      <button class="calendar-nav-btn" id="workoutCalPrev" aria-label="Giorno precedente">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 6 9 12 15 18"/></svg>
+      </button>
+      <span class="calendar-date-text" id="workoutCalDate"></span>
+      <button class="calendar-nav-btn" id="workoutCalNext" aria-label="Giorno successivo">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg>
+      </button>
+    </div>
+
+    <!-- Workout Execution View (exercise card → "Visualizza esecuzione"), node 745:10922 -->
+    <section class="execution-view" id="executionView">
+      <div class="execution-image-frame">
+        <img src="assets/img/panca-piana.png" alt="" class="execution-image" id="executionImage">
+      </div>
+    </section>
+    <div class="execution-button-bar" id="executionButtonBar">
+      <button class="modal-button execution-continue-btn" id="executionContinueBtn">Continua allenamento</button>
+    </div>
+
+    <!-- Diet Detail View (Dieta/Grassi/Carboidrati/Proteine → "Visualizza Dieta"), node 702:7937 -->
+    <section class="diet-view" id="dietView"></section>
+
+    <!-- Calendar bar (node 628:1424): pages the diet view through other days, positioned like
+         .chat-input-bar above the (still-visible) nav bar. Unlike the workout one above, "next" is
+         disabled once you reach today — this is a historical log, so the future stays unreachable. -->
+    <div class="calendar-bar" id="dietCalendarBar">
+      <button class="calendar-nav-btn" id="dietCalPrev" aria-label="Giorno precedente">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 6 9 12 15 18"/></svg>
+      </button>
+      <span class="calendar-date-text" id="dietCalDate"></span>
+      <button class="calendar-nav-btn" id="dietCalNext" aria-label="Giorno successivo">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg>
+      </button>
+    </div>
+
+    <!-- Photo Capture Flow (Dieta card → "Segnala Sgarro", nodes 745:10783/745:10664/927:4707/
+         927:4675; "Il mio corpo" card → "Carica foto", nodes 926:4357/925:4316/926:4525/926:4559) —
+         shared camera/gallery capture + confirm-before-sending step, reused for both contexts. -->
+    <section class="sgarro-view" id="sgarroView">
+      <div class="sgarro-frame" id="sgarroFrame">
+        <img src="assets/img/sgarro-placeholder.png" alt="" class="sgarro-preview-image" id="sgarroPreviewImage">
+        <button class="sgarro-shutter-btn" id="sgarroShutterBtn" aria-label="Scatta foto"></button>
+        <div class="sgarro-gallery-grid" id="sgarroGalleryGrid"></div>
+      </div>
+    </section>
+    <div class="sgarro-button-bar" id="sgarroButtonBar">
+      <button class="sgarro-tab-btn active" id="sgarroTabCamera">Scatta foto</button>
+      <button class="sgarro-tab-btn" id="sgarroTabGallery">Carica foto</button>
+      <button class="sgarro-tab-btn" id="sgarroRetakeBtn" style="display: none;">Scatta foto</button>
+      <button class="sgarro-tab-btn active" id="sgarroSendBtn" style="display: none;">Invia foto</button>
+    </div>
+    <input type="file" accept="image/*" capture="environment" id="sgarroCameraInput" style="display: none;">
+
+    <!-- Photo Library View (Il mio corpo → "Vedi foto", node 926:4389; Impostazioni → "Le mie
+         foto", node 927:4590) — grid of previously confirmed photos, multi-select to delete. -->
+    <section class="photolib-view" id="photolibView">
+      <div class="photolib-frame" id="photolibFrame">
+        <div class="photolib-grid" id="photolibGrid"></div>
+      </div>
+    </section>
+    <div class="photolib-button-bar" id="photolibButtonBar">
+      <button class="modal-button photolib-delete-btn" id="photolibDeleteBtn" disabled>Elimina foto</button>
+    </div>
+
+    <!-- Noise Texture Film Overlay -->
+    <div class="grain-overlay"></div>
+  </main>
+
+  <script src="app.js?v=104"></script>
+  <script type="module" src="model3d.js?v=51"></script>
+</body>
+</html>
